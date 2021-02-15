@@ -1,0 +1,61 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	int arr[8001] = { 0 };
+	vector<int> v;
+	int sum = 0;
+	int n;
+
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		int temp;
+		cin >> temp;
+		arr[temp + 4000]++;	// 최빈값 용
+		v.push_back(temp);
+		sum += temp;
+	}
+	sort(v.begin(), v.end());
+
+	// 산술평균 mean
+	double mean = round((double)sum / n);
+
+	// 중앙값 median
+	int median = ((v.size() + 1) / 2) - 1;
+
+	// 최빈값 mode
+	int mode = 0;
+	int cnt = 0;
+	bool find = false;
+	for (int i = 0; i < 8001; i++)
+	{
+		if (arr[i] >= cnt)
+		{
+			if (arr[i] == cnt)
+			{
+				if (!find)
+				{
+					find = true;
+					mode = i - 4000;
+				}
+				continue;
+			}
+			find = false;
+			cnt = arr[i];
+			mode = i-4000;
+		}
+	}
+
+	// 범위 diff
+	int diff = v[n-1] - v[0];
+
+	// 출력
+	cout << mean << '\n' << v[median] << '\n' << mode << '\n' << diff;
+	return 0;
+}
