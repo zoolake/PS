@@ -1,0 +1,45 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Room
+{
+	int floor;
+	int number;
+};
+
+int main()
+{
+	int T;
+	cin >> T;
+
+	while (T--)
+	{
+		int h, w, n;
+		cin >> h >> w >> n;
+
+		vector<Room> hotel(h * w);
+		int idx = 0;
+		for (int i = 0; i < w; i++)
+		{
+			for (int j = 0; j < h; j++)
+			{
+				Room room;
+				room.floor = j + 1;
+				room.number = i + 1;
+				hotel[idx] = room;
+				idx++;
+			}
+		}
+
+		string floor = to_string(hotel[n - 1].floor);
+		string number = to_string(hotel[n - 1].number);
+		if (number.length() == 1)
+			number = "0" + number;
+		cout << floor + number << endl;
+	}
+	return 0;
+}

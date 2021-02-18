@@ -1,0 +1,54 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+
+using namespace std;
+
+int result = 0;
+
+// input: 3 7 7
+// output: 63
+
+void recursion(int len, int row, int col)
+{
+	// 종료조건
+	if (len == 0)	return;
+
+	else 
+	{
+		int factor = pow(2, len - 1);	// 분할면이 작게 쪼개질때마다 행과 열의 변화를 주기위한 변수
+		int size = pow(2, factor);		// 사분면에서 row와 col이 속하는 면을 제외한 나머지 면의 넓이
+		int tempRow = row / factor;
+		int tempCol = col / factor;		
+
+		// 상단
+		if (tempRow == 0)
+		{
+			// 좌상단
+			if (tempCol == 0){}
+			// 우상단
+			else result += size;		
+		}
+
+		// 하단
+		else
+		{
+			// 좌하단
+			if (tempCol == 0) result += 2 * size;
+			// 우하단
+			else result += 3 * size;
+		}
+
+		recursion(len - 1, row % factor, col % factor);
+	}
+}
+
+int main()
+{
+	int N, r, c;
+	cin >> N >> r >> c;
+
+	recursion(N, r, c);
+	cout << result;
+	return 0;
+}

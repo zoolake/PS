@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+	int x, y;
+	cin >> x >> y;
+
+	// 최대공약수
+	int g_common_factor = min(x, y);
+	for (int i = g_common_factor; i >= 1; i--)
+	{
+		if ((x % i == 0) && (y % i == 0))
+		{
+			g_common_factor = i;
+			break;
+		}
+	}
+	// 최소공배수
+	int l_common_multiple = max(x, y);
+	while (true)
+	{
+		if (l_common_multiple % x == 0 && l_common_multiple % y == 0)
+			break;
+
+		l_common_multiple++;
+	}
+
+	cout << g_common_factor << endl;
+	cout << l_common_multiple;
+
+	return 0;
+}
