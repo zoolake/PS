@@ -1,0 +1,61 @@
+#include <iostream>
+#include <set>
+#include <string>
+
+using namespace std;
+
+//	set 참고 블로그: https://blockdmask.tistory.com/79
+int main()
+{
+	int T;
+	cin >> T;
+
+	while (T--)
+	{
+		int k;
+		cin >> k;
+
+		multiset<int> mset;	// 내림차순
+
+		for (int i = 0; i < k; i++)
+		{
+			string op;
+			int val;
+			cin >> op >> val;
+
+			if (op == "I")
+				mset.insert(val);
+
+			else if (op == "D")
+			{
+				if (mset.empty())
+					continue;
+
+				multiset<int>::iterator iter;
+				if (val == -1)
+				{
+					iter = mset.begin();
+					mset.erase(iter);
+				}
+				else if (val == 1)
+				{
+					iter = mset.end();
+					iter--;
+					mset.erase(iter);
+				}
+			}
+		}
+
+		if (mset.empty())
+			cout << "EMPTY" << "\n";
+
+		else
+		{
+			auto iter = mset.end();
+			iter--;
+			cout << *iter << " " << *mset.begin() << "\n";
+		}
+	}
+
+	return 0;
+}
