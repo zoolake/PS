@@ -5,13 +5,14 @@
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        temp = []
+        # 덱
+        temp = collections.deque()
         while head is not None:
             temp.append(head.val)
             head = head.next
         
         while len(temp) >= 2:
-            if temp.pop(0) != temp.pop():
+            if temp.popleft() != temp.pop():
                 return False
         
         return True
