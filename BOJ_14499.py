@@ -1,3 +1,11 @@
+# 1)틀린 부분
+#   if board[nx][ny] != 0:  
+# 2)수정
+#   elif board[nx][ny] != 0:
+# 3)잘못한 점
+#   무분별하게 if + if 로 작성하다가 연속적으로 조건문을 거치는 상황이 생김
+
+
 import sys
 input = sys.stdin.readline
 
@@ -18,12 +26,10 @@ board = [list(map(int, input().split())) for _ in range(n)]
 operations = list(map(int, input().split()))
 
 dice = [0, 0, 0, 0, 0, 0]   # 인덱스1 = 윗면 / 인덱스3 = 아랫면
+dx = [0,0,0,-1,1]
+dy = [0,1,-1,0,0]
 for op in operations:
-    if op == 1: nx, ny = x, y+1
-    if op == 2: nx, ny = x, y-1
-    if op == 3: nx, ny = x-1, y
-    if op == 4: nx, ny = x+1, y
-
+    nx, ny = x + dx[op], y+ dy[op]
     if 0<= nx < n and 0<= ny < m:
         dice = rotation(dice, op)
         # 칸의 숫자가 0이라면
@@ -32,7 +38,7 @@ for op in operations:
             board[nx][ny] = dice[3]
             
         # 칸의 숫자가 0이 아니라면
-        if board[nx][ny] != 0:
+        elif board[nx][ny] != 0:
             # 칸의 숫자를 주사위 바닥면으로 복사 후, 칸의 숫자는 0
             dice[3] = board[nx][ny]
             board[nx][ny] = 0
